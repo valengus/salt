@@ -1,4 +1,4 @@
-virtualbox repo:
+virtualbox:
   pkgrepo.managed:
     - humanname: "Fedora $releasever - $basearch - VirtualBox"
     - baseurl: http://download.virtualbox.org/virtualbox/rpm/fedora/{{ salt['grains.get']('osrelease') }}/$basearch
