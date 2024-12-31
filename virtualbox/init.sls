@@ -1,6 +1,6 @@
 include:
-  - kernel
-  - repo.rpmfusion
+- kernel
+- repo.rpmfusion
 
 VirtualBox:
   pkg.installed:
