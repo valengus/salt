@@ -1,12 +1,14 @@
 # salt
 
 ```bash
+# Install salt 3007 & deps
 curl -L https://bootstrap.saltproject.io/bootstrap-salt.sh | sudo sh -s -- -F stable 3007
 sudo dnf config-manager setopt salt-repo-3007-sts.enabled=1
 sudo dnf config-manager setopt salt-repo-3006-lts.enabled=0
 sudo dnf update salt-minion -y
 sudo salt-pip install gitpython
 
+# Salt config
 sudo tee /etc/salt/minion << END
 master_type: disable
 fileserver_backend:
@@ -24,5 +26,6 @@ file_client: local
 return: rawfile_json
 END
 
-sudo salt-call --local state.apply salt-minion --state-output=terse
+# Salt call
+salt-call --local state.apply docker pillar='{"username": "<username>"}' --state-output=terse
 ```
