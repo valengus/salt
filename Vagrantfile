@@ -8,7 +8,7 @@ curl -L https://bootstrap.saltproject.io/bootstrap-salt.sh | sudo sh -s -- -F st
 dnf config-manager setopt salt-repo-3007-sts.enabled=1
 dnf config-manager setopt salt-repo-3006-lts.enabled=0
 dnf update salt-minion -y
-salt-call --local state.apply virtualbox pillar='{"username": "vagrant"}'
+salt-call --local state.apply docker pillar='{"username": "vagrant"}'
 SCRIPT
 
 Vagrant.configure("2") do |config|
