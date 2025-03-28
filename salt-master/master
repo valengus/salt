@@ -1,0 +1,19 @@
+default_include: master.d/*.conf
+pki_dir: /etc/salt/pki/master
+
+autosign_grains_dir: /etc/salt/autosign_grains
+autosign_file: /etc/salt/autosign.conf
+
+interface: 0.0.0.0
+ipv6: False
+user: salt
+publish_port: 4505
+ret_port: 4506
+
+fileserver_backend:
+- git
+gitfs_update_interval: 120
+gitfs_global_lock: false
+gitfs_base: main
+gitfs_remotes:
+- https://github.com/valengus/salt.git

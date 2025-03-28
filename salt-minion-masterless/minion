@@ -1,0 +1,12 @@
+master_type: disable
+fileserver_backend:
+- git
+gitfs_update_interval: 300
+gitfs_global_lock: false
+gitfs_base: main
+gitfs_remotes:
+- https://github.com/valengus/salt.git
+pub_ret: false
+mine_enabled: false
+file_client: local
+return: rawfile_json

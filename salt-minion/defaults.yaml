@@ -1,0 +1,3 @@
+saltminion:
+  master: salt
+  version: "3007.1-0" # yum list available --showduplicates salt-minion

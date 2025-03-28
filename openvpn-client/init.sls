@@ -1,0 +1,3 @@
+include:
+- repo.epel
+- .install

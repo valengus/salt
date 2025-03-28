@@ -1,0 +1,20 @@
+jenkins:
+  version: 2.492.2-1.1
+  home: /var/lib/jenkins
+  plugin_manager_version: 2.13.0
+  admin_user: admin
+  admin_password: password
+  env:
+  - { key: JENKINS_HOME,        value: "/var/lib/jenkins" }
+  - { key: JENKINS_WEBROOT,     value: "%C/jenkins/war" }
+  - { key: JAVA_OPTS,           value: "-Djava.awt.headless=true -Djenkins.install.runSetupWizard=false" }
+  - { key: JENKINS_PORT,        value: "8080" }
+  - { key: CASC_JENKINS_CONFIG, value: "/var/lib/jenkins/jenkins-config-as-code.yaml" }
+  plugins:
+  - { name: git, version: 5.7.0 }
+  - { name: job-dsl }
+  - { name: workflow-aggregator }
+  - { name: script-security }
+  - { name: pipeline-stage-view }
+  - { name: git-parameter }
+  - { name: prometheus }
