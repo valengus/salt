@@ -41,7 +41,7 @@ salt-minion:
   schedule.present:
   - function: state.apply
   - job_args:
-    - salt-master.minion
+    - salt-minion
   - seconds: 3600
   - splay: 300
   - retry:
