@@ -17,4 +17,3 @@ jenkins:
   - { name: script-security }
   - { name: pipeline-stage-view }
   - { name: git-parameter }
-  - { name: prometheus }

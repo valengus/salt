@@ -1,0 +1,4 @@
+k3s:
+  version: "v1.33.5+k3s1"
+  download_path: "https://github.com/k3s-io/k3s/releases/download"
+  token: "f1cc219b039ccd0fcf9fcba01679a5a2"

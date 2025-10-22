@@ -13,18 +13,38 @@ SCRIPT
 
 Vagrant.configure("2") do |config|
 
-  config.vm.define "salt" do |config|
-    config.vm.box      = "oraclelinux/9"
-    config.vm.hostname = "salt"
+  # config.vm.define "salt" do |config|
+  #   config.vm.box      = "generic/oracle9"
+  #   config.vm.hostname = "k3s"
+  #   config.vm.hostname = "salt"
+  #   config.vm.provider :libvirt do |libvirt|
+  #     libvirt.driver                    = "kvm"
+  #     libvirt.qemu_use_session          = false
+  #     libvirt.cpus                      = 2
+  #     libvirt.memory                    = 4 * 1024
+  #     libvirt.default_prefix            = 'vagrant_'
+  #     libvirt.management_network_name   = 'vagrant'
+  #     libvirt.management_network_domain = 'local'
+  #   end
+  #   config.vm.synced_folder '.', '/vagrant', disabled: true
+  #   config.vm.synced_folder '.', "/srv/salt", type: "nfs", nfs_version: 4, nfs_udp: false
+  #   config.vm.provision "shell", inline: $installSalt
+  # end
+
+  config.vm.define "k3s" do |config|
+    config.vm.box      = "generic/oracle9"
+    config.vm.hostname = "k3s"
     config.vm.provider :libvirt do |libvirt|
-      libvirt.driver           = "kvm"
-      libvirt.qemu_use_session = false
-      libvirt.cpus             = 2
-      libvirt.memory           = 4 * 1024
+      libvirt.driver                    = "kvm"
+      libvirt.qemu_use_session          = false
+      libvirt.cpus                      = 2
+      libvirt.memory                    = 4 * 1024
+      libvirt.default_prefix            = 'vagrant_'
       libvirt.management_network_name   = 'vagrant'
       libvirt.management_network_domain = 'local'
     end
-    config.vm.synced_folder ".", "/srv/salt", type: "nfs", nfs_version: 4, nfs_udp: false
+    config.vm.synced_folder '.', '/vagrant', disabled: true
+    config.vm.synced_folder '.', "/srv/salt", type: "nfs", nfs_version: 4, nfs_udp: false
     config.vm.provision "shell", inline: $installSalt
   end
 
