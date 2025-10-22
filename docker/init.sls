@@ -33,9 +33,22 @@ docker:
     - pkg: python3-pip
   - pip_bin: /usr/bin/salt-pip
 
+  file.managed:
+    - name: /etc/docker/daemon.json
+    - contents: |
+        {
+          "exec-opts": ["native.cgroupdriver=systemd"],
+          "log-driver": "json-file",
+          "log-opts": {
+            "max-size": "100m"
+          },
+          "storage-driver": "overlay2"
+        }
+    - makedirs: true
+
   service.running:
   - name: docker
   - enable: True
-  - reload: True
   - watch:
     - group: docker
+    - file: docker

@@ -1,2 +1,2 @@
-git:
+git-core:
   pkg.installed: []

@@ -1,0 +1,3 @@
+kubernetes:
+  initToken: "hmlnkh.crf01viy76s6qckz"
+  podNetworkCidr: "10.244.0.0/16"

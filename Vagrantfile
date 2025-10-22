@@ -31,21 +31,32 @@ Vagrant.configure("2") do |config|
   #   config.vm.provision "shell", inline: $installSalt
   # end
 
-  config.vm.define "k3s" do |config|
-    config.vm.box      = "generic/oracle9"
-    config.vm.hostname = "k3s"
-    config.vm.provider :libvirt do |libvirt|
-      libvirt.driver                    = "kvm"
-      libvirt.qemu_use_session          = false
-      libvirt.cpus                      = 2
-      libvirt.memory                    = 4 * 1024
-      libvirt.default_prefix            = 'vagrant_'
-      libvirt.management_network_name   = 'vagrant'
-      libvirt.management_network_domain = 'local'
+  $k8s_num_instances ||= 1
+  (1..$k8s_num_instances).each do |i|
+    config.vm.define "k8s-0#{i}" do |config|
+      config.vm.hostname = "k8s-0#{i}"
+      config.vm.box      = "generic/oracle9"
+      config.vm.provider :libvirt do |libvirt|
+        libvirt.driver                    = "kvm"
+        libvirt.cpus                      = 2
+        libvirt.memory                    = 4 * 1024
+        libvirt.qemu_use_session          = false
+        libvirt.default_prefix            = 'vagrant_'
+        libvirt.management_network_name   = 'vagrant'
+        libvirt.management_network_domain = 'local'
+      end
+      config.vm.synced_folder '.', '/vagrant', disabled: true
+      config.vm.synced_folder '.', "/srv/salt", type: "nfs", nfs_version: 4, nfs_udp: false
+      config.vm.provision "shell", inline: $installSalt
+      config.vm.provision "shell", inline: <<-SHELL
+        salt-call --local state.apply kubernetes
+      SHELL
+      if i == 1
+        config.vm.provision "shell", inline: <<-SHELL
+          salt-call --local state.apply kubernetes.master-init
+        SHELL
+      end
     end
-    config.vm.synced_folder '.', '/vagrant', disabled: true
-    config.vm.synced_folder '.', "/srv/salt", type: "nfs", nfs_version: 4, nfs_udp: false
-    config.vm.provision "shell", inline: $installSalt
   end
 
   # config.vm.define "windows" do |config|
