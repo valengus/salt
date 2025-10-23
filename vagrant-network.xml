@@ -1,0 +1,10 @@
+<network>
+  <name>vagrant-network</name>
+  <forward mode='nat'/>
+  <domain name="local" localOnly="yes"/>
+  <ip address="192.168.121.1" netmask="255.255.255.0">
+    <dhcp>
+      <range start='192.168.121.100' end='192.168.121.254'/>
+    </dhcp>
+  </ip>
+</network>

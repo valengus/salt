@@ -6,8 +6,13 @@ include:
 
 Kubernetes master init:
   cmd.run:
-  - name: kubeadm init --token {{ kubernetes.initToken }} --cri-socket unix:///var/run/cri-dockerd.sock --pod-network-cidr={{ kubernetes.podNetworkCidr }}
-  - creates: /etc/kubernetes/admin.conf
+    - name: >
+        kubeadm init 
+        --token {{ kubernetes.initToken }} 
+        --cri-socket unix:///var/run/cri-dockerd.sock 
+        --pod-network-cidr={{ kubernetes.podNetworkCidr }} 
+        # --control-plane-endpoint "haproxy:6443" --cri-socket unix:///run/containerd/containerd.sock
+    - creates: /etc/kubernetes/admin.conf
 
 Kubernetes config dir:
   file.directory:
@@ -43,3 +48,12 @@ Kubernetes master untaint:
       - KUBECONFIG: "/etc/kubernetes/admin.conf"
     - require:
       - cmd: Kubernetes master init
+
+# Kubernetes dashboard:
+#   cmd.run:
+#     - name: kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/v2.7.0/aio/deploy/recommended.yaml
+#     - unless: kubectl get pods -n kubernetes-dashboard  2>/dev/null | grep -q dashboard
+#     - env:
+#       - KUBECONFIG: "/etc/kubernetes/admin.conf"
+#     - require:
+#       - cmd: Kubernetes master init

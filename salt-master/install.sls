@@ -5,7 +5,7 @@ include:
 
 salt-master:
   pkg.installed:
-  - version: "3007.1-0"
+  - version: "3007.8-0"
   - require:
     - file: /etc/yum.repos.d/salt.repo
 

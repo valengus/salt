@@ -6,8 +6,10 @@ default-pkgs:
       - make 
       - curl
       - tree
+      - htop
       - which 
       - unzip
       - iproute
+      - nmap-ncat
       - net-tools
       - bash-completion

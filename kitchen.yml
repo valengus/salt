@@ -7,7 +7,7 @@ provisioner:
   state_top:
     base:
       "*":
-      - jenkins
+      - python3
 
 driver:
   name: docker

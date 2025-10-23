@@ -16,9 +16,3 @@ setuptools:
   - pip_bin: /usr/bin/pip3
   - require:
     - pip: pip
-
-# setuptools_rust:
-#   pip.installed:
-#   - pip_bin: /usr/bin/pip3
-#   - require:
-#     - pip: pip
