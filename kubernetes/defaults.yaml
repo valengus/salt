@@ -1,3 +1,6 @@
 kubernetes:
-  initToken: "hmlnkh.crf01viy76s6qckz"
-  podNetworkCidr: "10.244.0.0/16"
+  version: '1.34'
+  init_token: "hmlnkh.crf01viy76s6qckz"
+  pod_network_cidr: "10.244.0.0/16"
+  container_runtime: 'containerd'       # 'docker' or 'containerd'
+  control_plane_endpoint: ''            # 'haproxy:6443'

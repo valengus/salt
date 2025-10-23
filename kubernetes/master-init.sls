@@ -7,11 +7,11 @@ include:
 Kubernetes master init:
   cmd.run:
     - name: >
-        kubeadm init 
-        --token {{ kubernetes.initToken }} 
-        --cri-socket unix:///var/run/cri-dockerd.sock 
-        --pod-network-cidr={{ kubernetes.podNetworkCidr }} 
-        # --control-plane-endpoint "haproxy:6443" --cri-socket unix:///run/containerd/containerd.sock
+        kubeadm init
+        --token {{ kubernetes.init_token }}
+        --pod-network-cidr={{ kubernetes.pod_network_cidr }}
+        {% if kubernetes.container_runtime  == 'docker' %}--cri-socket unix:///var/run/cri-dockerd.sock{% elif kubernetes.container_runtime  == 'containerd' %}--cri-socket unix:///run/containerd/containerd.sock{% endif %}
+        {% if kubernetes.control_plane_endpoint %}--control-plane-endpoint "{{ kubernetes.control_plane_endpoint }}"{% endif %}
     - creates: /etc/kubernetes/admin.conf
 
 Kubernetes config dir:

@@ -3,3 +3,6 @@ kernel-uek:
 
 kernel-uek-core:
   pkg.installed: []
+
+kernel-uek-modules:
+  pkg.installed: []

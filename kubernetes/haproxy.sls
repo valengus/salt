@@ -4,8 +4,6 @@ include:
 
 {% set kube_api_servers = [
     {'name': 'k8s-01', 'host': 'k8s-01.local'},
-    {'name': 'k8s-02', 'host': 'k8s-02.local'},
-    {'name': 'k8s-03', 'host': 'k8s-03.local'},
 ] %}
 {% set api_port = 6443 %}
 
