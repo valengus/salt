@@ -32,14 +32,23 @@ Kubernetes config:
       - cmd: Kubernetes master init
       - file: /root/.kube
 
-Flannel CNI:
+Calico:
   cmd.run:
-    - name: kubectl apply -f https://github.com/flannel-io/flannel/releases/latest/download/kube-flannel.yml
-    - unless: kubectl get pods -n kube-flannel 2>/dev/null | grep -q flannel
-    - env:
-      - KUBECONFIG: "/etc/kubernetes/admin.conf"
-    - require:
-      - cmd: Kubernetes master init
+  - name: kubectl apply -f https://docs.projectcalico.org/manifests/calico.yaml
+  - unless: kubectl get pods -n kube-system | grep -q calico
+  - env:
+    - KUBECONFIG: "/etc/kubernetes/admin.conf"
+  - require:
+    - cmd: Kubernetes master init
+
+# Flannel CNI:
+#   cmd.run:
+#     - name: kubectl apply -f https://github.com/flannel-io/flannel/releases/latest/download/kube-flannel.yml
+#     - unless: kubectl get pods -n kube-flannel | grep -q flannel
+#     - env:
+#       - KUBECONFIG: "/etc/kubernetes/admin.conf"
+#     - require:
+#       - cmd: Kubernetes master init
 
 Kubernetes master untaint:
   cmd.run:
@@ -48,12 +57,3 @@ Kubernetes master untaint:
       - KUBECONFIG: "/etc/kubernetes/admin.conf"
     - require:
       - cmd: Kubernetes master init
-
-# Kubernetes dashboard:
-#   cmd.run:
-#     - name: kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/v2.7.0/aio/deploy/recommended.yaml
-#     - unless: kubectl get pods -n kubernetes-dashboard  2>/dev/null | grep -q dashboard
-#     - env:
-#       - KUBECONFIG: "/etc/kubernetes/admin.conf"
-#     - require:
-#       - cmd: Kubernetes master init

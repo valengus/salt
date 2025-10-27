@@ -61,4 +61,15 @@ Vagrant.configure("2") do |config|
     end
   end
 
+  # $consul_num_instances ||= 2
+  # (1..$consul_num_instances).each do |i|
+  #   config.vm.define "consul-0#{i}" do |config|
+  #     config.vm.hostname = "consul-0#{i}"
+  #     config.vm.box      = "generic/oracle9"
+  #     config.vm.provision "shell", inline: <<-SHELL
+  #       salt-call --local state.apply consul.server
+  #     SHELL
+  #   end
+  # end
+
 end
